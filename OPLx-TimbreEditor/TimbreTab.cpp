@@ -36,12 +36,6 @@ void CTimbreTab::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_TIMBRE_ALG0_STATIC, m_aCStaticCON[0]);
 	DDX_Control(pDX, IDC_TIMBRE_ALG1_STATIC, m_aCStaticCON[1]);
-	DDX_Control(pDX, IDC_TIMBRE_ALG2_STATIC, m_aCStaticCON[2]);
-	DDX_Control(pDX, IDC_TIMBRE_ALG3_STATIC, m_aCStaticCON[3]);
-	DDX_Control(pDX, IDC_TIMBRE_ALG4_STATIC, m_aCStaticCON[4]);
-	DDX_Control(pDX, IDC_TIMBRE_ALG5_STATIC, m_aCStaticCON[5]);
-	DDX_Control(pDX, IDC_TIMBRE_ALG6_STATIC, m_aCStaticCON[6]);
-	DDX_Control(pDX, IDC_TIMBRE_ALG7_STATIC, m_aCStaticCON[7]);
 }
 
 
@@ -161,7 +155,7 @@ void CTimbreTab::SetCur(int x, int y, bool bEditing)
 
 void CTimbreTab::SetPicture(int CON)
 {
-	for (int i = 0; i <= 7; ++i){
+	for (int i = 0; i <= 1; ++i){
 		m_aCStaticCON[i].ShowWindow((CON == i)? SW_SHOW: SW_HIDE);
 	}
 }

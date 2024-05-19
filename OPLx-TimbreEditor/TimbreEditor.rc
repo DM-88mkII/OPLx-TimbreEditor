@@ -162,12 +162,6 @@ BEGIN
     RTEXT           "0000",IDC_TIMBRE_KT_STATIC,209,18,15,8
     CONTROL         IDB_BITMAP_ALG0,IDC_TIMBRE_ALG0_STATIC,"Static",SS_BITMAP,6,6,18,21
     CONTROL         IDB_BITMAP_ALG1,IDC_TIMBRE_ALG1_STATIC,"Static",SS_BITMAP,6,6,18,21
-    CONTROL         IDB_BITMAP_ALG2,IDC_TIMBRE_ALG2_STATIC,"Static",SS_BITMAP,6,6,18,21
-    CONTROL         IDB_BITMAP_ALG3,IDC_TIMBRE_ALG3_STATIC,"Static",SS_BITMAP,6,6,18,21
-    CONTROL         IDB_BITMAP_ALG4,IDC_TIMBRE_ALG4_STATIC,"Static",SS_BITMAP,6,6,18,21
-    CONTROL         IDB_BITMAP_ALG5,IDC_TIMBRE_ALG5_STATIC,"Static",SS_BITMAP,6,6,18,21
-    CONTROL         IDB_BITMAP_ALG6,IDC_TIMBRE_ALG6_STATIC,"Static",SS_BITMAP,6,6,18,21
-    CONTROL         IDB_BITMAP_ALG7,IDC_TIMBRE_ALG7_STATIC,"Static",SS_BITMAP,6,6,18,21
     RTEXT           "000",IDC_TIMBRE_INST_STATIC,271,18,11,8
     RTEXT           "KSL",IDC_STATIC,102,36,12,8
     RTEXT           "000",IDC_TIMBRE_KSL1_STATIC,102,48,11,8
@@ -357,18 +351,6 @@ END
 IDB_BITMAP_ALG0         BITMAP                  "picture\\0.bmp"
 
 IDB_BITMAP_ALG1         BITMAP                  "picture\\1.bmp"
-
-IDB_BITMAP_ALG2         BITMAP                  "picture\\2.bmp"
-
-IDB_BITMAP_ALG3         BITMAP                  "picture\\3.bmp"
-
-IDB_BITMAP_ALG4         BITMAP                  "picture\\4.bmp"
-
-IDB_BITMAP_ALG5         BITMAP                  "picture\\5.bmp"
-
-IDB_BITMAP_ALG6         BITMAP                  "picture\\6.bmp"
-
-IDB_BITMAP_ALG7         BITMAP                  "picture\\7.bmp"
 
 #endif    // 日本語 (日本) resources
 /////////////////////////////////////////////////////////////////////////////

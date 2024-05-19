@@ -9,12 +9,6 @@
 #define IDR_MAINFRAME                   128
 #define IDB_BITMAP_ALG0                 174
 #define IDB_BITMAP_ALG1                 175
-#define IDB_BITMAP_ALG2                 176
-#define IDB_BITMAP_ALG3                 177
-#define IDB_BITMAP_ALG4                 178
-#define IDB_BITMAP_ALG5                 179
-#define IDB_BITMAP_ALG6                 180
-#define IDB_BITMAP_ALG7                 181
 #define IDC_MASTER_TAB                  1000
 #define IDC_MODULE_TAB                  1001
 #define IDC_BUTTON_MODULE_ADD           1002

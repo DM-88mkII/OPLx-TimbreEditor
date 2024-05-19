@@ -27,7 +27,7 @@ class CTimbreTab : public CDialogEx
 		DECLARE_MESSAGE_MAP()
 	
 	protected:
-		CStatic m_aCStaticCON[8];
+		CStatic m_aCStaticCON[2];
 		int mx;
 		int my;
 		bool m_bEditing;
