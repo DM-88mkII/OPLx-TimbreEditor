@@ -149,7 +149,7 @@ void CIntermediate::from_json(const nlohmann::json& j)
 void CIntermediate::ToFormat(CSettingTab::EFormatType EFormatType, CString& Text)
 {
 	switch (EFormatType){
-//		case CSettingTab::EFormatType::MUCOM:{		ToMucom(Text);		break;	}
+		case CSettingTab::EFormatType::MGSDRV:{		ToMgsDrv(Text);		break;	}
 	}
 }
 
@@ -158,7 +158,7 @@ void CIntermediate::ToFormat(CSettingTab::EFormatType EFormatType, CString& Text
 void CIntermediate::FromFormat(CSettingTab::EFormatType EFormatType, const CString& Text)
 {
 	switch (EFormatType){
-//		case CSettingTab::EFormatType::MUCOM:{		FromMucom(Text);		break;	}
+		case CSettingTab::EFormatType::MGSDRV:{		FromMgsDrv(Text);		break;	}
 	}
 }
 
@@ -226,7 +226,7 @@ int CIntermediate::ToValue(const std::string& Token)
 
 
 
-void CIntermediate::GetOperator(const std::vector<std::string>& Tokens, int iOperator)
+void CIntermediate::GetOperator2413(const std::vector<std::string>& Tokens, int iOperator)
 {
 	int TimbreToken = 0;
 	for (auto Token : Tokens){
@@ -236,16 +236,97 @@ void CIntermediate::GetOperator(const std::vector<std::string>& Tokens, int iOpe
 			case 2:{	aOperator[iOperator].SL = ToValue(Token);	break;	}
 			case 3:{	aOperator[iOperator].RR = ToValue(Token);	break;	}
 			case 4:{	aOperator[iOperator].KSL = ToValue(Token);	break;	}
-			case 5:{	aOperator[iOperator].TL = ToValue(Token);	break;	}
-			case 6:{	aOperator[iOperator].MT = ToValue(Token);	break;	}
-			case 7:{	aOperator[iOperator].AM = ToValue(Token);	break;	}
-			case 8:{	aOperator[iOperator].VIB = ToValue(Token);	break;	}
-			case 9:{	aOperator[iOperator].EGT = ToValue(Token);	break;	}
-			case 10:{	aOperator[iOperator].KSR = ToValue(Token);	break;	}
-			case 11:{	aOperator[iOperator].WF = ToValue(Token);	break;	}
+			case 5:{	aOperator[iOperator].MT = ToValue(Token);	break;	}
+			case 6:{	aOperator[iOperator].AM = ToValue(Token);	break;	}
+			case 7:{	aOperator[iOperator].VIB = ToValue(Token);	break;	}
+			case 8:{	aOperator[iOperator].EGT = ToValue(Token);	break;	}
+			case 9:{	aOperator[iOperator].KSR = ToValue(Token);	break;	}
+			case 10:{	aOperator[iOperator].WF = ToValue(Token);	break;	}
 		}
 		++TimbreToken;
 	}
+}
+
+
+
+void CIntermediate::ToMgsDrv(CString& Text)
+{
+	std::string s;
+	s += std::format("@v{} = ", Control.NUM);
+	s += "{";
+	s += std::format("{:>2},{:>2},\n      ", aOperator[0].TL, Control.FB);
+	for (int i = 0; i < 2; ++i){
+		s += std::format(" {:>2}", aOperator[i].AR);
+		s += std::format(",{:>2}", aOperator[i].DR);
+		s += std::format(",{:>2}", aOperator[i].SL);
+		s += std::format(",{:>2}", aOperator[i].RR);
+		s += std::format(",{:>2}", aOperator[i].KSL);
+		s += std::format(",{:>2}", aOperator[i].MT);
+		s += std::format(",{:>2}", aOperator[i].AM);
+		s += std::format(",{:>2}", aOperator[i].VIB);
+		s += std::format(",{:>2}", aOperator[i].EGT);
+		s += std::format(",{:>2}", aOperator[i].KSR);
+		s += std::format(",{:>2}", aOperator[i].WF);
+		s += (i < 1)? ",\n      ": " }\n";
+	}
+	Text = s.c_str();
+}
+
+
+
+void CIntermediate::FromMgsDrv(const CString& Text)
+{
+	auto IsTimbre = false;
+	int TimbreLine = 0;
+	int iOperator = 0;
+	
+	auto Lines = GetLines(Text);
+	for (auto& Line : Lines){
+		auto o = Line.find_first_not_of(" \t");
+		if (Line.size() > 0 && o != std::string::npos && Line[o] == ';') continue;
+		
+		if (!IsTimbre){
+			auto m1 = Line.find("@v");
+			auto m2 = Line.find("=");
+			if (m1 == 0 && m2 != std::string::npos && m1 < m2){
+				IsTimbre = true;
+				
+				Replace(Line, "@v", "");
+				Replace(Line, "=", ",");
+				Replace(Line, "{", " ");
+				
+				auto Tokens = GetToken(Line, ',');
+				int TimbreToken = 0;
+				for (auto Token : Tokens){
+					switch (TimbreToken){
+						case 0:{	Control.NUM = ToValue(Token);		break;	}
+						case 1:{	aOperator[0].TL = ToValue(Token);	break;	}
+						case 2:{	Control.FB = ToValue(Token);		break;	}
+					}
+					++TimbreToken;
+				}
+			}
+		} else {
+			Replace(Line, "\t", " ");
+			Replace(Line, "  ", " ");
+			
+			auto Tokens = GetToken(Line, ',');
+			switch (TimbreLine){
+				case 0:
+				case 1:
+				{
+					GetOperator2413(Tokens, iOperator);
+					++iOperator;
+					break;
+				}
+			}
+			++TimbreLine;
+		}
+	}
+	if (!(IsTimbre && iOperator == 2)){
+		throw std::runtime_error("Format Error");
+	}
+	Control.OPLL = 1;
 }
 
 
