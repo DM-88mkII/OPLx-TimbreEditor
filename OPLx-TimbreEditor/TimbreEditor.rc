@@ -1,0 +1,406 @@
+// Microsoft Visual C++ generated resource script.
+//
+#pragma code_page(65001)
+
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+#include "verrsrc.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 (日本) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""verrsrc.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)\r\n"
+    "LANGUAGE 17, 1\r\n"
+    "#include ""res\\TimbreEditor.rc2""\r\n"
+    "#include ""l.JPN\\afxres.rc""\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include  ""l.JPN\\afxribbon.rc""\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\TimbreEditor.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_TIMBREEDITOR_DIALOG DIALOGEX 0, 0, 330, 156
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "OPNx Timbre Editor"
+FONT 9, "MS UI Gothic", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_MASTER_TAB,"SysTabControl32",0x0,0,0,330,156
+END
+
+IDD_MODULE_TAB DIALOGEX 0, 0, 348, 200
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "MS UI Gothic", 400, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_MODULE_TAB,"SysTabControl32",0x0,0,0,329,114
+    PUSHBUTTON      "Add",IDC_MODULE_ADD_BUTTON,228,120,42,14
+    PUSHBUTTON      "Delete",IDC_MODULE_DELETE_BUTTON,276,120,42,14
+    PUSHBUTTON      "Load",IDC_MODULE_LOAD_BUTTON,6,120,42,14
+    PUSHBUTTON      "Save",IDC_MODULE_SAVE_BUTTON,54,120,42,14
+    CTEXT           "",IDC_MODULE_LOG,103,123,114,8
+END
+
+IDD_TIMBRE_TAB DIALOGEX 0, 0, 321, 98
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "MS UI Gothic", 400, 0, 0x0
+BEGIN
+    RTEXT           "CON",IDC_STATIC,30,6,15,8
+    RTEXT           "FB",IDC_STATIC,49,6,10,8
+    RTEXT           "  KT",IDC_STATIC,209,6,14,8
+    RTEXT           "FDT",IDC_STATIC,228,6,14,8
+    RTEXT           "AR",IDC_STATIC,30,36,10,8
+    RTEXT           "DR",IDC_STATIC,49,36,10,8
+    RTEXT           "RR",IDC_STATIC,85,36,10,8
+    RTEXT           " SL",IDC_STATIC,66,36,11,8
+    RTEXT           " TL",IDC_STATIC,121,36,11,8
+    RTEXT           "KSR",IDC_STATIC,210,36,14,8
+    RTEXT           "MT",IDC_STATIC,138,36,10,8
+    RTEXT           "AM",IDC_STATIC,157,36,11,8
+    RTEXT           "VIB",IDC_STATIC,175,36,12,8
+    RTEXT           "OPLL",IDC_STATIC,252,6,16,8
+    RTEXT           "SUS",IDC_STATIC,306,6,14,8
+    RTEXT           " WF",IDC_STATIC,252,36,12,8
+    RTEXT           "OP1",IDC_TIMBRE_OP1_STATIC,6,48,13,8
+    RTEXT           "OP2",IDC_TIMBRE_OP2_STATIC,6,60,13,8
+    RTEXT           "000",IDC_TIMBRE_CON_STATIC,30,18,11,8
+    RTEXT           "000",IDC_TIMBRE_FB_STATIC,49,18,11,8
+    RTEXT           "0000",IDC_TIMBRE_FDT_STATIC,228,18,15,8
+    RTEXT           "000",IDC_TIMBRE_VOL_STATIC,288,18,11,8
+    RTEXT           "000",IDC_TIMBRE_AR1_STATIC,30,48,11,8
+    RTEXT           "000",IDC_TIMBRE_DR1_STATIC,49,48,11,8
+    RTEXT           "000",IDC_TIMBRE_RR1_STATIC,85,48,11,8
+    RTEXT           "000",IDC_TIMBRE_SL1_STATIC,66,48,11,8
+    RTEXT           "000",IDC_TIMBRE_TL1_STATIC,121,48,11,8
+    RTEXT           "000",IDC_TIMBRE_KSR1_STATIC,210,48,11,8
+    RTEXT           "000",IDC_TIMBRE_MT1_STATIC,138,48,11,8
+    RTEXT           "000",IDC_TIMBRE_AM1_STATIC,157,48,11,8
+    RTEXT           "000",IDC_TIMBRE_VIB1_STATIC,175,48,11,8
+    RTEXT           "000",IDC_TIMBRE_WF1_STATIC,252,48,11,8
+    RTEXT           "000",IDC_TIMBRE_AR2_STATIC,30,60,11,8
+    RTEXT           "000",IDC_TIMBRE_DR2_STATIC,49,60,11,8
+    RTEXT           "000",IDC_TIMBRE_RR2_STATIC,85,60,11,8
+    RTEXT           "000",IDC_TIMBRE_SL2_STATIC,66,60,11,8
+    RTEXT           "000",IDC_TIMBRE_TL2_STATIC,121,60,11,8
+    RTEXT           "000",IDC_TIMBRE_KSR2_STATIC,210,60,11,8
+    RTEXT           "000",IDC_TIMBRE_MT2_STATIC,138,60,11,8
+    RTEXT           "000",IDC_TIMBRE_AM2_STATIC,157,60,11,8
+    RTEXT           "000",IDC_TIMBRE_VIB2_STATIC,175,60,11,8
+    RTEXT           "000",IDC_TIMBRE_WF2_STATIC,252,60,11,8
+    RTEXT           "NUM",IDC_STATIC,66,6,15,8
+    RTEXT           "000",IDC_TIMBRE_NUM_STATIC,66,18,11,8
+    RTEXT           "000",IDC_TIMBRE_KML_STATIC,85,18,11,8
+    RTEXT           "000",IDC_TIMBRE_KMH_STATIC,103,18,11,8
+    RTEXT           "000",IDC_TIMBRE_SEL_STATIC,155,18,11,8
+    RTEXT           "000",IDC_TIMBRE_AMD_STATIC,174,18,11,8
+    RTEXT           "000",IDC_TIMBRE_FDE_STATIC,138,18,11,8
+    RTEXT           "000",IDC_TIMBRE_OPLL_STATIC,253,18,11,8
+    RTEXT           "FDE",IDC_STATIC,138,6,14,8
+    RTEXT           "KML",IDC_STATIC,85,6,14,8
+    RTEXT           "KMH",IDC_STATIC,103,6,15,8
+    RTEXT           "0000",IDC_TIMBRE_KT_STATIC,209,18,15,8
+    CONTROL         IDB_BITMAP_ALG0,IDC_TIMBRE_ALG0_STATIC,"Static",SS_BITMAP,6,6,18,21
+    CONTROL         IDB_BITMAP_ALG1,IDC_TIMBRE_ALG1_STATIC,"Static",SS_BITMAP,6,6,18,21
+    CONTROL         IDB_BITMAP_ALG2,IDC_TIMBRE_ALG2_STATIC,"Static",SS_BITMAP,6,6,18,21
+    CONTROL         IDB_BITMAP_ALG3,IDC_TIMBRE_ALG3_STATIC,"Static",SS_BITMAP,6,6,18,21
+    CONTROL         IDB_BITMAP_ALG4,IDC_TIMBRE_ALG4_STATIC,"Static",SS_BITMAP,6,6,18,21
+    CONTROL         IDB_BITMAP_ALG5,IDC_TIMBRE_ALG5_STATIC,"Static",SS_BITMAP,6,6,18,21
+    CONTROL         IDB_BITMAP_ALG6,IDC_TIMBRE_ALG6_STATIC,"Static",SS_BITMAP,6,6,18,21
+    CONTROL         IDB_BITMAP_ALG7,IDC_TIMBRE_ALG7_STATIC,"Static",SS_BITMAP,6,6,18,21
+    RTEXT           "000",IDC_TIMBRE_INST_STATIC,271,18,11,8
+    RTEXT           "KSL",IDC_STATIC,102,36,12,8
+    RTEXT           "000",IDC_TIMBRE_KSL1_STATIC,102,48,11,8
+    RTEXT           "000",IDC_TIMBRE_KSL2_STATIC,102,60,11,8
+    RTEXT           "EGT",IDC_STATIC,193,36,14,8
+    RTEXT           "000",IDC_TIMBRE_EGT1_STATIC,193,48,11,8
+    RTEXT           "000",IDC_TIMBRE_EGT2_STATIC,193,60,11,8
+    RTEXT           "SEL",IDC_STATIC,155,6,12,8
+    RTEXT           "AMD",IDC_STATIC,174,6,15,8
+    RTEXT           "INST",IDC_STATIC,271,6,15,8
+    RTEXT           "VOL",IDC_STATIC,288,6,14,8
+    RTEXT           "PMD",IDC_STATIC,191,6,15,8
+    RTEXT           "000",IDC_TIMBRE_PMD_STATIC,191,18,11,8
+    RTEXT           "000",IDC_TIMBRE_VOID1_0_STATIC,228,48,11,8
+    RTEXT           "000",IDC_TIMBRE_VOID2_0_STATIC,228,60,11,8
+    RTEXT           "000",IDC_TIMBRE_SUS_STATIC,306,18,11,8
+    RTEXT           "000",IDC_TIMBRE_VOID1_1_STATIC,270,48,11,8
+    RTEXT           "000",IDC_TIMBRE_VOID1_2_STATIC,288,48,11,8
+    RTEXT           "000",IDC_TIMBRE_VOID2_1_STATIC,270,60,11,8
+    RTEXT           "000",IDC_TIMBRE_VOID2_2_STATIC,288,60,11,8
+    RTEXT           "EN",IDC_STATIC,120,6,10,8
+    RTEXT           "000",IDC_TIMBRE_EN_STATIC,120,18,11,8
+    RTEXT           "000",IDC_TIMBRE_VOID1_3_STATIC,306,48,11,8
+    RTEXT           "000",IDC_TIMBRE_VOID2_3_STATIC,306,60,11,8
+END
+
+IDD_SETTING_TAB DIALOGEX 0, 0, 327, 141
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "MS UI Gothic", 400, 0, 0x0
+BEGIN
+    COMBOBOX        IDC_SETTING_COPY_FORMAT_COMBO,42,6,67,30,CBS_DROPDOWNLIST | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "拡張コピー",IDC_STATIC,6,8,30,8
+    CONTROL         "拡張コピーと通常コピーの音色形式を入れ替える",IDC_SETTING_SWAP_COPY_FORMAT_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,7,147,10
+    CONTROL         "",IDC_SETTING_LATENCY_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,138,36,66,12
+    LTEXT           "Latency",IDC_STATIC,114,36,24,8
+    LTEXT           "※アプリの再実行が必要",IDC_STATIC,210,37,68,8
+    LTEXT           "1ms",IDC_STATIC,138,48,13,8
+    LTEXT           "100ms",IDC_STATIC,186,48,20,8
+    COMBOBOX        IDC_SETTING_FILTER_COMBO,42,60,66,30,CBS_DROPDOWNLIST | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "フィルター",IDC_STATIC,6,62,26,8
+    CONTROL         "",IDC_SETTING_CUTOFF_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,138,60,66,12
+    LTEXT           "0.01",IDC_STATIC,138,72,12,8
+    RTEXT           "0.99",IDC_STATIC,186,72,12,8
+    RTEXT           " Cutoff",IDC_STATIC,114,61,22,8
+    CONTROL         "",IDC_SETTING_RESONANCE_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,246,60,66,12
+    LTEXT           "0.01",IDC_STATIC,246,72,12,8
+    RTEXT           "1.00",IDC_STATIC,294,72,12,8
+    RTEXT           "Resonance",IDC_STATIC,210,61,33,8
+    LTEXT           "合成周波数",IDC_STATIC,6,36,35,8
+    COMBOBOX        IDC_SETTING_SYNTHESIZE_FREQ_COMBO,42,33,66,30,CBS_DROPDOWNLIST | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "DCカット",IDC_SETTING_DC_CUT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,85,38,10
+    CONTROL         "",IDC_SETTING_DC_CUT_RATE_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,42,84,66,12
+    LTEXT           "0.990",IDC_STATIC,42,96,16,8
+    RTEXT           "0.999",IDC_STATIC,90,96,16,8
+    CONTROL         "ペーストで取り込んだ音色形式を拡張コピーに自動設定する",IDC_SETTING_AUTO_COPY_FORMAT_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,18,177,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041104B0"
+        BEGIN
+            VALUE "CompanyName", "TODO: <会社名>"
+            VALUE "FileDescription", "TimbreEditor"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "TimbreEditor.exe"
+            VALUE "LegalCopyright", "TODO: (C) <会社名>.  All rights reserved."
+            VALUE "OriginalFilename", "TimbreEditor.exe"
+            VALUE "ProductName", "TODO: <製品名>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x411, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_TIMBREEDITOR_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 323
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 149
+    END
+
+    IDD_MODULE_TAB, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_TIMBRE_TAB, DIALOG
+    BEGIN
+        RIGHTMARGIN, 320
+    END
+
+    IDD_SETTING_TAB, DIALOG
+    BEGIN
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_TIMBREEDITOR_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_MODULE_TAB AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_TIMBRE_TAB AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_SETTING_TAB AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_SETTING_TAB DLGINIT
+BEGIN
+    IDC_SETTING_COPY_FORMAT_COMBO, 0x403, 10, 0
+0x554d, 0x4f43, 0x8c4d, 0x8e60, 0x00ae, 
+    IDC_SETTING_COPY_FORMAT_COMBO, 0x403, 18, 0
+0x4d46, 0x2050, 0x2026, 0x6d6d, 0x326c, 0x6776, 0x8c6d, 0x8e60, 0x00ae, 
+
+    IDC_SETTING_COPY_FORMAT_COMBO, 0x403, 8, 0
+0x4d50, 0x8c44, 0x8e60, 0x00ae, 
+    IDC_SETTING_COPY_FORMAT_COMBO, 0x403, 15, 0
+0x414d, 0x696d, 0x6964, 0x654d, 0x6f6d, 0x608c, 0xae8e, "\000" 
+    IDC_SETTING_FILTER_COMBO, 0x403, 5, 0
+0x6f4e, 0x656e, "\000" 
+    IDC_SETTING_FILTER_COMBO, 0x403, 8, 0
+0x6f4c, 0x5077, 0x7361, 0x0073, 
+    IDC_SETTING_FILTER_COMBO, 0x403, 9, 0
+0x6948, 0x6867, 0x6150, 0x7373, "\000" 
+    IDC_SETTING_FILTER_COMBO, 0x403, 9, 0
+0x6142, 0x646e, 0x6150, 0x7373, "\000" 
+    IDC_SETTING_SYNTHESIZE_FREQ_COMBO, 0x403, 9, 0
+0x3035, 0x302c, 0x3030, 0x7a48, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP_ALG0         BITMAP                  "picture\\0.bmp"
+
+IDB_BITMAP_ALG1         BITMAP                  "picture\\1.bmp"
+
+IDB_BITMAP_ALG2         BITMAP                  "picture\\2.bmp"
+
+IDB_BITMAP_ALG3         BITMAP                  "picture\\3.bmp"
+
+IDB_BITMAP_ALG4         BITMAP                  "picture\\4.bmp"
+
+IDB_BITMAP_ALG5         BITMAP                  "picture\\5.bmp"
+
+IDB_BITMAP_ALG6         BITMAP                  "picture\\6.bmp"
+
+IDB_BITMAP_ALG7         BITMAP                  "picture\\7.bmp"
+
+#endif    // 日本語 (日本) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE 17, 1
+#include "res\TimbreEditor.rc2"
+#include "l.JPN\afxres.rc"
+#if !defined(_AFXDLL)
+#include  "l.JPN\afxribbon.rc"
+#endif
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
