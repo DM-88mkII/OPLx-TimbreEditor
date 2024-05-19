@@ -565,7 +565,7 @@ void CModuleTab::DrawAllParam()
 	}
 	
 	{	// 
-		auto& rValueNew = GetParamValue(2, 0);
+		auto& rValueNew = GetParamValue(0, 0);
 		auto CON = rValueNew.GetValue();
 		m_CTimbreTab.SetPicture(CON);
 	}
@@ -622,7 +622,7 @@ void CModuleTab::RedrawParam(int ax, int ay)
 	if (pCWndOld != nullptr) pCWndOld->SetWindowText((LPCTSTR)rValueOld.GetText());
 	if (pCWndNew != nullptr) pCWndNew->SetWindowText((LPCTSTR)rValueNew.GetText());
 	
-	if (mx == 2 && my == 0){
+	if (mx == 0 && my == 0){
 		auto CON = rValueNew.GetValue();
 		m_CTimbreTab.SetPicture(CON);
 	}
