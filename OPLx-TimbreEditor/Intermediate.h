@@ -71,6 +71,9 @@ struct CIntermediate
 		
 		void ToMgsDrv(CString& Text);
 		void FromMgsDrv(const CString& Text);
+		
+		void ToMml2VgmLL(CString& Text);
+		void FromMml2VgmLL(const CString& Text);
 };
 
 

@@ -54,6 +54,7 @@ class CSettingTab : public CDialogEx
 		enum EFormatType
 		{
 			MGSDRV,
+			Mml2VgmLL,
 			Num,
 		};
 		enum ESynthesizeFreq

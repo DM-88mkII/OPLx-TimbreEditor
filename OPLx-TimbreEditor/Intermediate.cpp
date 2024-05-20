@@ -131,7 +131,7 @@ void CIntermediate::from_json(const nlohmann::json& j)
 				};
 				
 				auto o = Timbre.at("Operators");
-				for (int i = 0; i < 2; ++i) SetOperator(o, i);
+				for (int i = 0; i < _countof(aOperator); ++i) SetOperator(o, i);
 			}
 		}
 	}
@@ -149,7 +149,8 @@ void CIntermediate::from_json(const nlohmann::json& j)
 void CIntermediate::ToFormat(CSettingTab::EFormatType EFormatType, CString& Text)
 {
 	switch (EFormatType){
-		case CSettingTab::EFormatType::MGSDRV:{		ToMgsDrv(Text);		break;	}
+		case CSettingTab::EFormatType::MGSDRV:{		ToMgsDrv(Text);			break;	}
+		case CSettingTab::EFormatType::Mml2VgmLL:{	ToMml2VgmLL(Text);		break;	}
 	}
 }
 
@@ -159,6 +160,7 @@ void CIntermediate::FromFormat(CSettingTab::EFormatType EFormatType, const CStri
 {
 	switch (EFormatType){
 		case CSettingTab::EFormatType::MGSDRV:{		FromMgsDrv(Text);		break;	}
+		case CSettingTab::EFormatType::Mml2VgmLL:{	FromMml2VgmLL(Text);	break;	}
 	}
 }
 
@@ -255,7 +257,7 @@ void CIntermediate::ToMgsDrv(CString& Text)
 	s += std::format("@v{} = ", Control.NUM);
 	s += "{";
 	s += std::format("{:>2},{:>2},\n      ", aOperator[0].TL, Control.FB);
-	for (int i = 0; i < 2; ++i){
+	for (int i = 0; i < _countof(aOperator); ++i){
 		s += std::format(" {:>2}", aOperator[i].AR);
 		s += std::format(",{:>2}", aOperator[i].DR);
 		s += std::format(",{:>2}", aOperator[i].SL);
@@ -323,10 +325,89 @@ void CIntermediate::FromMgsDrv(const CString& Text)
 			++TimbreLine;
 		}
 	}
-	if (!(IsTimbre && iOperator == 2)){
+	if (!(IsTimbre && iOperator == _countof(aOperator))){
 		throw std::runtime_error("Format Error");
 	}
 	Control.OPLL = 1;
+}
+
+
+
+void CIntermediate::ToMml2VgmLL(CString& Text)
+{
+	std::string s;
+	s += std::format("'@ LL {} \"\"\n", Control.NUM);
+	for (int i = 0; i < _countof(aOperator); ++i){
+		s += "'@";
+		s += std::format(" {:>3}", aOperator[i].AR);
+		s += std::format(",{:>3}", aOperator[i].DR);
+		s += std::format(",{:>3}", aOperator[i].SL);
+		s += std::format(",{:>3}", aOperator[i].RR);
+		s += std::format(",{:>3}", aOperator[i].KSL);
+		s += std::format(",{:>3}", aOperator[i].MT);
+		s += std::format(",{:>3}", aOperator[i].AM);
+		s += std::format(",{:>3}", aOperator[i].VIB);
+		s += std::format(",{:>3}", aOperator[i].EGT);
+		s += std::format(",{:>3}", aOperator[i].KSR);
+		s += std::format(",{:>3}", aOperator[i].WF);
+		s += "\n";
+	}
+	s += std::format("'@ {:>3},{:>3}\n", aOperator[0].TL, Control.FB);
+	Text = s.c_str();
+}
+
+
+
+void CIntermediate::FromMml2VgmLL(const CString& Text)
+{
+	auto IsTimbre = false;
+	int TimbreLine = 0;
+	int iOperator = 0;
+	
+	auto Lines = GetLines(Text);
+	for (auto& Line : Lines){
+		Replace(Line, "\t", " ");
+		Replace(Line, "  ", " ");
+		
+		if (Line.size() > 0 && Line[0] != '\'') continue;
+		
+		if (!IsTimbre){
+			auto m1 = Line.find("'@ LL ");
+			auto m2 = Line.find("\"");
+			if (m1 == 0 && m2 != std::string::npos && m1 < m2){
+				IsTimbre = true;
+				
+				auto Token = Line.substr(m1+6, m2-m1-6);
+				Control.NUM = ToValue(Token);
+			}
+		} else {
+			auto Tokens = GetToken(Trim(Line, "'@"), ',');
+			switch (TimbreLine){
+				case 2:{
+					int TimbreToken = 0;
+					for (auto Token : Tokens){
+						switch (TimbreToken){
+							case 0:{	aOperator[0].TL = ToValue(Token);	break;	}
+							case 1:{	Control.FB = ToValue(Token);		break;	}
+						}
+						++TimbreToken;
+					}
+					break;
+				}
+				case 0:
+				case 1:
+				{
+					GetOperator2413(Tokens, iOperator);
+					++iOperator;
+					break;
+				}
+			}
+			++TimbreLine;
+		}
+	}
+	if (!(IsTimbre && iOperator == _countof(aOperator))){
+		throw std::runtime_error("Format Error");
+	}
 }
 
 

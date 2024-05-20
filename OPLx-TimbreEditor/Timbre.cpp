@@ -24,10 +24,6 @@ CTimbre::CTimbre(int SampleRate)
 ,m_pYM3526(std::make_unique<FmChip<ymfm::ym3526>>(output_rate * 72, EChipType::YM3526))
 ,m_pYM2413(std::make_unique<FmChip<ymfm::ym2413>>(output_rate * 72, EChipType::YM2413))
 {
-OutputDebugStringA(std::to_string(output_rate).c_str());
-OutputDebugStringA(".");
-OutputDebugStringA(std::to_string(output_rate * 72).c_str());
-OutputDebugStringA("\n");
 	{	// 
 		Control.CON.SetValue(0);
 		Control.FB.SetValue(0);
