@@ -65,8 +65,11 @@ struct CIntermediate
 		void Replace(std::string& source, const std::string& target, const std::string& replace);
 		std::vector<std::string> GetLines(const CString& Text);
 		std::vector<std::string> GetToken(const std::string& Line, char delim);
+		std::string CommentCut(const std::string& Line, const std::string& target);
 		std::string Trim(const std::string& Token, const std::string& trim);
 		int ToValue(const std::string& Token);
+		int ToValueHex(const std::string& Token);
+		
 		void GetOperator2413(const std::vector<std::string>& Tokens, int iOperator);
 		
 		void ToMgsDrv(CString& Text);
@@ -74,6 +77,9 @@ struct CIntermediate
 		
 		void ToMml2VgmLL(CString& Text);
 		void FromMml2VgmLL(const CString& Text);
+		
+		void ToMsxBasic(CString& Text);
+		void FromMsxBasic(const CString& Text);
 };
 
 
