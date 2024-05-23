@@ -31,7 +31,7 @@ class CTimbre
 			CValue<1, 0, 1> FDE;
 			CValue<1, 0, 1> SEL;
 			CValue<1, 0, 3> AMD;
-			CValue<1, 0, 3> PMD;
+			CValue<1, 0, 3> VBD;
 			CValue<4, -114, 114> KT;
 			CValue<4, -999, 999> FDT;
 			
@@ -65,6 +65,9 @@ class CTimbre
 		bool m_bKeyOn;
 		bool m_bFDE;
 		
+		bool m_IsYM3526;
+		
+		int16_t m_BlockFNumberYM3526;
 		int16_t m_BlockFNumberYM2413;
 		
 		uint32_t output_rate;
@@ -77,7 +80,9 @@ class CTimbre
 	private:
 		void SubmitSourceBuffer(std::vector<int>& aOutput);
 		
-		void BlockFNumber(int Note);
+		void BlockFNumber3526(int Note);
+		void BlockFNumber2413(int Note);
+		
 		void KeyOn();
 	
 	public:

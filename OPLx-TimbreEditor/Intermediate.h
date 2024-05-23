@@ -25,7 +25,7 @@ struct CIntermediate
 			int FDE;
 			int SEL;
 			int AMD;
-			int PMD;
+			int VBD;
 			int KT;
 			int FDT;
 			

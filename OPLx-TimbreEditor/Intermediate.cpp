@@ -46,7 +46,7 @@ void CIntermediate::to_json(nlohmann::json& j) const
 				{"FDE",		Control.FDE,},
 				{"SEL",		Control.SEL,},
 				{"AMD",		Control.AMD,},
-				{"PMD",		Control.PMD,},
+				{"VBD",		Control.VBD,},
 				{"KT",		Control.KT,},
 				{"FDT",		Control.FDT,},
 				{"OPLL",	Control.OPLL,},
@@ -104,7 +104,7 @@ void CIntermediate::from_json(const nlohmann::json& j)
 				Control.FDE = o.at("FDE").get<int>();
 				Control.SEL = o.at("SEL").get<int>();
 				Control.AMD = o.at("AMD").get<int>();
-				Control.PMD = o.at("PMD").get<int>();
+				Control.VBD = o.value("VBD", 0);
 				Control.KT = o.at("KT").get<int>();
 				Control.FDT = o.at("FDT").get<int>();
 				Control.OPLL = o.at("OPLL").get<int>();
@@ -478,7 +478,7 @@ void CIntermediate::ToMsxBasic(CString& Text)
 	s += ",0000";
 	s += ",0000";
 	s += ",0000";
-	s += std::format(",{:04x}", ((Control.AMD<<7) | (Control.PMD<<6) | ((Control.OPLL^1)<<5) | (Control.FB<<1) | Control.CON));
+	s += std::format(",{:04x}", ((Control.AMD<<7) | (Control.VBD<<6) | ((Control.OPLL^1)<<5) | (Control.FB<<1) | Control.CON));
 	s += ",0000";
 	s += ",0000";
 	s += "\n";
@@ -546,7 +546,7 @@ void CIntermediate::FromMsxBasic(const CString& Text)
 									Control.CON =   (v>>0) & 1;
 									Control.FB =    (v>>1) & 7;
 									Control.OPLL = ((v>>5) & 1)^1;
-									Control.PMD =   (v>>6) & 1;
+									Control.VBD =   (v>>6) & 1;
 									Control.AMD =   (v>>7) & 1;
 									break;
 								}

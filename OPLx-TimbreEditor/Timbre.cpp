@@ -5,6 +5,7 @@
 #include <cmath>
 #include <random>
 #include <memory>
+#include "TimbreEditor.h"
 #include "Timbre.h"
 
 
@@ -32,14 +33,14 @@ CTimbre::CTimbre(int SampleRate)
 		Control.KMH.SetValue(128);
 		Control.EN.SetValue(1);
 		Control.FDE.SetValue(1);
-		Control.OPLL.SetValue(1);
+		Control.OPLL.SetValue(theApp.GetValue(_T("OPLL"), BST_UNCHECKED));
 		Control.VOL.SetValue(0);
 		
 		for (int i = 0; i < 2; ++i){
-			aOperator[i].AR.SetValue(31);
+			aOperator[i].AR.SetValue(15);
 			aOperator[i].DR.SetValue(0);
-			aOperator[i].SL.SetValue(0);
-			aOperator[i].RR.SetValue(0);
+			aOperator[i].SL.SetValue(1);
+			aOperator[i].RR.SetValue(6);
 			aOperator[i].KSL.SetValue(0);
 			aOperator[i].MT.SetValue(1);
 			aOperator[i].AM.SetValue(0);
@@ -69,7 +70,7 @@ IValue& CTimbre::GetValue(int x, int y)
 				case 6: return Control.FDE;
 				case 7: return Control.SEL;
 				case 8: return Control.AMD;
-				case 9: return Control.PMD;
+				case 9: return Control.VBD;
 				case 10: return Control.KT;
 				case 11: return Control.FDT;
 				case 12: return Control.OPLL;
@@ -118,7 +119,7 @@ void CTimbre::SubmitSourceBuffer(std::vector<int>& aOutput)
 {
 	for (auto& i : aOutput){
 		int32_t outputs[1] = {0};
-//		m_pYM3526->generate(output_pos, output_step, outputs);
+		m_pYM3526->generate(output_pos, output_step, outputs);
 		m_pYM2413->generate(output_pos, output_step, outputs);
 		i += outputs[0];
 		
@@ -130,18 +131,33 @@ void CTimbre::SubmitSourceBuffer(std::vector<int>& aOutput)
 
 static const int16_t s_aBlockFNumberYM3526[]={
 //	c       c+      d       d+      e       f       f+      g       g+      a       a+      b
-	0x009a, 0x00a3, 0x00ad, 0x00b7, 0x00c2, 0x00ce, 0x00da, 0x00e7, 0x00f5, 0x0104, 0x0113, 0x0123,	// o-1
-	0x0135, 0x0147, 0x015b, 0x016f, 0x0185, 0x019c, 0x01b5, 0x01cf, 0x01ea, 0x0208, 0x0227, 0x0247,	// o0
-	0x026a, 0x028f, 0x02b6, 0x02df, 0x030b, 0x0339, 0x036a, 0x039e, 0x03d5, 0x0410, 0x044e, 0x048f,	// o1
-	0x0a6a, 0x0a8f, 0x0ab6, 0x0adf, 0x0b0b, 0x0b39, 0x0b6a, 0x0b9e, 0x0bd5, 0x0c10, 0x0c4e, 0x0c8f,	// o2
-	0x126a, 0x128f, 0x12b6, 0x12df, 0x130b, 0x1339, 0x136a, 0x139e, 0x13d5, 0x1410, 0x144e, 0x148f,	// o3
-	0x1a6a, 0x1a8f, 0x1ab6, 0x1adf, 0x1b0b, 0x1b39, 0x1b6a, 0x1b9e, 0x1bd5, 0x1c10, 0x1c4e, 0x1c8f,	// o4
-	0x226a, 0x228f, 0x22b6, 0x22df, 0x230b, 0x2339, 0x236a, 0x239e, 0x23d5, 0x2410, 0x244e, 0x248f,	// o5
-	0x2a6a, 0x2a8f, 0x2ab6, 0x2adf, 0x2b0b, 0x2b39, 0x2b6a, 0x2b9e, 0x2bd5, 0x2c10, 0x2c4e, 0x2c8f,	// o6
-	0x326a, 0x328f, 0x32b6, 0x32df, 0x330b, 0x3339, 0x336a, 0x339e, 0x33d5, 0x3410, 0x344e, 0x348f,	// o7
-	0x3a6a, 0x3a8f, 0x3ab6, 0x3adf, 0x3b0b, 0x3b39, 0x3b6a, 0x3b9e, 0x3bd5, 0x3c10, 0x3c4e, 0x3c8f,	// o8
-	0x3cd4, 0x3d1e, 0x3d6c, 0x3dbe, 0x3e16, 0x3e72, 0x3ed4, 0x3f3c, 0x3faa, 0x0000, 0x0000, 0x0000,	// o9
+	0x00AB, 0x00B5, 0x00C0, 0x00CC, 0x00D8, 0x00E5, 0x00F2, 0x0101, 0x0110, 0x0120, 0x0131, 0x0143,	// o0
+	0x0157, 0x016b, 0x0181, 0x0198, 0x01b0, 0x01ca, 0x01e5, 0x0202, 0x0220, 0x0241, 0x0263, 0x0287,	// o1
+	0x0557, 0x056b, 0x0581, 0x0598, 0x05b0, 0x05ca, 0x05e5, 0x0602, 0x0620, 0x0641, 0x0663, 0x0687,	// o2
+	0x0957, 0x096b, 0x0981, 0x0998, 0x09b0, 0x09ca, 0x09e5, 0x0a02, 0x0a20, 0x0a41, 0x0a63, 0x0a87,	// o3
+	0x0d57, 0x0d6b, 0x0d81, 0x0d98, 0x0db0, 0x0dca, 0x0de5, 0x0e02, 0x0e20, 0x0e41, 0x0e63, 0x0e87,	// o4
+	0x1157, 0x116b, 0x1181, 0x1198, 0x11b0, 0x11ca, 0x11e5, 0x1202, 0x1220, 0x1241, 0x1263, 0x1287,	// o5
+	0x1557, 0x156b, 0x1581, 0x1598, 0x15b0, 0x15ca, 0x15e5, 0x1602, 0x1620, 0x1641, 0x1663, 0x1687,	// o6
+	0x1957, 0x196b, 0x1981, 0x1998, 0x19b0, 0x19ca, 0x19e5, 0x1a02, 0x1a20, 0x1a41, 0x1a63, 0x1a87,	// o7
+	0x1d57, 0x1d6b, 0x1d81, 0x1d98, 0x1db0, 0x1dca, 0x1de5, 0x1e02, 0x1e20, 0x1e41, 0x1e63, 0x1e87,	// o8
+	0x1eae, 0x1ed7, 0x1f02, 0x1f30, 0x1f60, 0x1f94, 0x1fca, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,	// o9
 };
+
+void CTimbre::BlockFNumber3526(int Note)
+{
+	Note += Control.KT.GetValue();
+	Note = (Note >= 0)? Note: 0;
+	Note = (int)((Note < std::size(s_aBlockFNumberYM3526))? Note: std::size(s_aBlockFNumberYM3526)-1);
+	
+	auto BlockFNumber = s_aBlockFNumberYM3526[Note];
+	BlockFNumber += Control.FDT.GetValue();
+	BlockFNumber = (BlockFNumber >= 0)? BlockFNumber: 0;
+	BlockFNumber = (BlockFNumber <= 0x01fff)? BlockFNumber: 0x01fff;
+	
+	m_BlockFNumberYM3526 = BlockFNumber;
+}
+
+
 
 static const int16_t s_aBlockFNumberYM2413[]={
 //	c       c+      d       d+      e       f       f+      g       g+      a       a+      b
@@ -157,7 +173,7 @@ static const int16_t s_aBlockFNumberYM2413[]={
 	0x0f57, 0x0f6b, 0x0f81, 0x0f98, 0x0fb0, 0x0fca, 0x0fe5, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,	// o9
 };
 
-void CTimbre::BlockFNumber(int Note)
+void CTimbre::BlockFNumber2413(int Note)
 {
 	Note += Control.KT.GetValue();
 	Note = (Note >= 0)? Note: 0;
@@ -169,9 +185,6 @@ void CTimbre::BlockFNumber(int Note)
 	BlockFNumber = (BlockFNumber <= 0x0fff)? BlockFNumber: 0x0fff;
 	
 	m_BlockFNumberYM2413 = BlockFNumber;
-	
-//	m_pYM3526->write(RegH, BlockFNumber>>8);
-//	m_pYM3526->write(RegL, BlockFNumber&0xff);
 }
 
 
@@ -180,23 +193,48 @@ void CTimbre::KeyOn()
 {
 	if (m_bPlay && !m_bKeyOn){
 		m_bKeyOn = true;
-		m_pYM2413->write(0x00, ((aOperator[0].AM.GetValue()<<7) | (aOperator[0].VIB.GetValue()<<6) | (aOperator[0].EGT.GetValue()<<5) | (aOperator[0].KSR.GetValue()<<4) | aOperator[0].MT.GetValue()));
-		m_pYM2413->write(0x01, ((aOperator[1].AM.GetValue()<<7) | (aOperator[1].VIB.GetValue()<<6) | (aOperator[1].EGT.GetValue()<<5) | (aOperator[1].KSR.GetValue()<<4) | aOperator[1].MT.GetValue()));
-		m_pYM2413->write(0x02, ((aOperator[0].KSL.GetValue()<<6) | aOperator[0].TL.GetValue()));
-		m_pYM2413->write(0x03, ((aOperator[1].KSL.GetValue()<<6) | (aOperator[1].WF.GetValue()<<4) | (aOperator[1].WF.GetValue()<<3) | Control.FB.GetValue()));
-		m_pYM2413->write(0x04, ((aOperator[0].AR.GetValue()<<4) | aOperator[0].DR.GetValue()));
-		m_pYM2413->write(0x05, ((aOperator[1].AR.GetValue()<<4) | aOperator[1].DR.GetValue()));
-		m_pYM2413->write(0x06, ((aOperator[0].SL.GetValue()<<4) | aOperator[0].RR.GetValue()));
-		m_pYM2413->write(0x07, ((aOperator[1].SL.GetValue()<<4) | aOperator[1].RR.GetValue()));
 		
-		{	// 
-			BlockFNumber(m_Note);
-		}
-		
-		if (m_Note >= Control.KML.GetValue() && m_Note <= Control.KMH.GetValue()){
-			m_pYM2413->write(0x30, ((Control.INST.GetValue()<<4) | Control.VOL.GetValue()));
-			m_pYM2413->write(0x10, (m_BlockFNumberYM2413&0xff));
-			m_pYM2413->write(0x20, ((Control.SUS.GetValue()<<5) | (Control.EN.GetValue()<<4) | (m_BlockFNumberYM2413>>8)));
+		if (m_IsYM3526){
+			m_pYM3526->write(0x08, (Control.SEL.GetValue()<<6));
+			
+			m_pYM3526->write(0x20, ((aOperator[0].AM.GetValue()<<7) | (aOperator[0].VIB.GetValue()<<6) | (aOperator[0].EGT.GetValue()<<5) | (aOperator[0].KSR.GetValue()<<4) | aOperator[0].MT.GetValue()));
+			m_pYM3526->write(0x23, ((aOperator[1].AM.GetValue()<<7) | (aOperator[1].VIB.GetValue()<<6) | (aOperator[1].EGT.GetValue()<<5) | (aOperator[1].KSR.GetValue()<<4) | aOperator[1].MT.GetValue()));
+			m_pYM3526->write(0x40, ((aOperator[0].KSL.GetValue()<<6) | aOperator[0].TL.GetValue()));
+			m_pYM3526->write(0x43, ((aOperator[1].KSL.GetValue()<<6) | aOperator[1].TL.GetValue()));
+			m_pYM3526->write(0x60, ((aOperator[0].AR.GetValue()<<4) | aOperator[0].DR.GetValue()));
+			m_pYM3526->write(0x63, ((aOperator[1].AR.GetValue()<<4) | aOperator[1].DR.GetValue()));
+			m_pYM3526->write(0x80, ((aOperator[0].SL.GetValue()<<4) | aOperator[0].RR.GetValue()));
+			m_pYM3526->write(0x83, ((aOperator[1].SL.GetValue()<<4) | aOperator[1].RR.GetValue()));
+			m_pYM3526->write(0xbd, ((Control.AMD.GetValue()<<7) | (Control.VBD.GetValue()<<6)));
+			m_pYM3526->write(0xc0, ((Control.FB.GetValue()<<1) | Control.CON.GetValue()));
+			
+			{	// 
+				BlockFNumber3526(m_Note);
+			}
+			
+			if (m_Note >= Control.KML.GetValue() && m_Note <= Control.KMH.GetValue()){
+				m_pYM3526->write(0xa0, (m_BlockFNumberYM3526&0xff));
+				m_pYM3526->write(0xb0, ((Control.EN.GetValue()<<5) | (m_BlockFNumberYM3526>>8)));
+			}
+		} else {
+			m_pYM2413->write(0x00, ((aOperator[0].AM.GetValue()<<7) | (aOperator[0].VIB.GetValue()<<6) | (aOperator[0].EGT.GetValue()<<5) | (aOperator[0].KSR.GetValue()<<4) | aOperator[0].MT.GetValue()));
+			m_pYM2413->write(0x01, ((aOperator[1].AM.GetValue()<<7) | (aOperator[1].VIB.GetValue()<<6) | (aOperator[1].EGT.GetValue()<<5) | (aOperator[1].KSR.GetValue()<<4) | aOperator[1].MT.GetValue()));
+			m_pYM2413->write(0x02, ((aOperator[0].KSL.GetValue()<<6) | aOperator[0].TL.GetValue()));
+			m_pYM2413->write(0x03, ((aOperator[1].KSL.GetValue()<<6) | (aOperator[1].WF.GetValue()<<4) | (aOperator[0].WF.GetValue()<<3) | Control.FB.GetValue()));
+			m_pYM2413->write(0x04, ((aOperator[0].AR.GetValue()<<4) | aOperator[0].DR.GetValue()));
+			m_pYM2413->write(0x05, ((aOperator[1].AR.GetValue()<<4) | aOperator[1].DR.GetValue()));
+			m_pYM2413->write(0x06, ((aOperator[0].SL.GetValue()<<4) | aOperator[0].RR.GetValue()));
+			m_pYM2413->write(0x07, ((aOperator[1].SL.GetValue()<<4) | aOperator[1].RR.GetValue()));
+			
+			{	// 
+				BlockFNumber2413(m_Note);
+			}
+			
+			if (m_Note >= Control.KML.GetValue() && m_Note <= Control.KMH.GetValue()){
+				m_pYM2413->write(0x30, ((Control.INST.GetValue()<<4) | Control.VOL.GetValue()));
+				m_pYM2413->write(0x10, (m_BlockFNumberYM2413&0xff));
+				m_pYM2413->write(0x20, ((Control.SUS.GetValue()<<5) | (Control.EN.GetValue()<<4) | (m_BlockFNumberYM2413>>8)));
+			}
 		}
 	}
 }
@@ -210,16 +248,13 @@ void CTimbre::Play(int Note)
 		
 		m_bPlay = true;
 		m_bKeyOn = false;
-		m_ppFmChip = (Control.OPLL.GetValue() != 0)? &m_pYM2413: &m_pYM3526;
 		
-		switch (Control.OPLL.GetValue()){
-			case 0:{
-				m_bFDE = Control.FDE.GetValue();
-//				if (m_bFDE) m_pYM3526->write(0x20, ((aOperator[0].SL.GetValue()<<4) | /*RR*/15));
-				break;
-			}
-			case 1:{
-				break;
+		m_IsYM3526 = (Control.OPLL.GetValue() == 0);
+		if (m_IsYM3526){
+			m_bFDE = Control.FDE.GetValue();
+			if (m_bFDE){
+				m_pYM3526->write(0x80, ((aOperator[0].SL.GetValue()<<4) | /*RR*/15));
+				m_pYM3526->write(0x83, ((aOperator[1].SL.GetValue()<<4) | /*RR*/15));
 			}
 		}
 	}
@@ -228,7 +263,15 @@ void CTimbre::Stop()
 {
 	if (m_bPlay){
 		m_bPlay = false;
-//		m_pYM3526->write(0x28, 0x02);
+		
+		if (!m_IsYM3526){
+			m_pYM3526->write(0x80, ((aOperator[0].SL.GetValue()<<4) | /*RR*/15));
+			m_pYM3526->write(0x83, ((aOperator[1].SL.GetValue()<<4) | /*RR*/15));
+		} else {
+			m_pYM2413->write(0x06, ((aOperator[0].SL.GetValue()<<4) | /*RR*/15));
+			m_pYM2413->write(0x07, ((aOperator[1].SL.GetValue()<<4) | /*RR*/15));
+		}
+		m_pYM3526->write(0xb0,                               /*KeyOff*/0x00 | (m_BlockFNumberYM3526>>8));
 		m_pYM2413->write(0x20, (Control.SUS.GetValue()<<5) | /*KeyOff*/0x00 | (m_BlockFNumberYM2413>>8));
 	}
 }
@@ -246,7 +289,7 @@ void CTimbre::SetIntermediate(CIntermediate v)
 	Control.FDE.SetValue(v.Control.FDE);
 	Control.SEL.SetValue(v.Control.SEL);
 	Control.AMD.SetValue(v.Control.AMD);
-	Control.PMD.SetValue(v.Control.PMD);
+	Control.VBD.SetValue(v.Control.VBD);
 	Control.KT.SetValue(v.Control.KT);
 	Control.FDT.SetValue(v.Control.FDT);
 	Control.OPLL.SetValue(v.Control.OPLL);
@@ -285,7 +328,7 @@ CIntermediate CTimbre::GetIntermediate()
 	v.Control.FDE = Control.FDE.GetValue();
 	v.Control.SEL = Control.SEL.GetValue();
 	v.Control.AMD = Control.AMD.GetValue();
-	v.Control.PMD = Control.PMD.GetValue();
+	v.Control.VBD = Control.VBD.GetValue();
 	v.Control.KT = Control.KT.GetValue();
 	v.Control.FDT = Control.FDT.GetValue();
 	v.Control.OPLL = Control.OPLL.GetValue();

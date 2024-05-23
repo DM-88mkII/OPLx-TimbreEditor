@@ -36,6 +36,7 @@ class CSettingTab : public CDialogEx
 		CSliderCtrl m_CSliderCtrlResonance;
 		CButton m_CButtonDCCut;
 		CSliderCtrl m_CSliderCtrlDCCutRate;
+		CButton m_CButtonOPLL;
 		
 		virtual BOOL OnInitDialog();
 		virtual BOOL PreTranslateMessage(MSG* pMsg);
@@ -74,4 +75,6 @@ class CSettingTab : public CDialogEx
 		double GetResonance();
 		bool IsDCCut();
 		double GetDCCutRate();
+		bool IsOPLL();
+		afx_msg void OnBnClickedSettingOpllCheck();
 };
