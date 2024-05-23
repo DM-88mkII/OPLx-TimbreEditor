@@ -78,6 +78,9 @@ struct CIntermediate
 		void ToMml2VgmLL(CString& Text);
 		void FromMml2VgmLL(const CString& Text);
 		
+		void ToPmdOPL(CString& Text);
+		void FromPmdOPL(const CString& Text);
+		
 		void ToMsxBasic(CString& Text);
 		void FromMsxBasic(const CString& Text);
 };

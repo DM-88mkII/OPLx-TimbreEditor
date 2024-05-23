@@ -18,6 +18,7 @@ YAMAHA の FM音源チップ OPL系用の音色エディターです。
 * 拡張コピーに対応（以下の形式に対応）
   * MGSDRV, MSXplay
   * mml2vgm（LL形式）
+  * PMD（OPL型）
   * MSX-BASIC
 * ペーストは、上記全ての形式を自動判別してインポート
 

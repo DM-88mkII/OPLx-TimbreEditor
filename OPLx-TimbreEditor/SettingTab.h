@@ -56,6 +56,7 @@ class CSettingTab : public CDialogEx
 		{
 			MgsDrv,
 			Mml2VgmLL,
+			PmdOPL,
 			MsxBasic,
 			Num,
 		};
