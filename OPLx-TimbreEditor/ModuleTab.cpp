@@ -649,13 +649,6 @@ void CModuleTab::Play(bool bShift, int Note, CString Key)
 	
 	Log(_T("o{}{}({})"), (Note / 12), (LPCTSTR)Key, Note);
 	
-	if (bShift){
-		for (auto CTimbre : m_aCTimbre) CTimbre->Play(Note);
-	} else {
-		auto iItem = m_CTabCtrl.GetCurSel();
-		m_aCTimbre[iItem]->Play(Note);
-	}
-	
 	{	// 
 		auto pCTimbreEditorDlg = (CTimbreEditorDlg*)GetTopLevelParent();
 		auto& rCSettingTab = pCTimbreEditorDlg->GetSettingTab();
@@ -664,6 +657,14 @@ void CModuleTab::Play(bool bShift, int Note, CString Key)
 		m_Filter.setResonance(rCSettingTab.GetResonance());
 		m_Filter.setDCCut(rCSettingTab.IsDCCut());
 		m_Filter.setDCCutRate(rCSettingTab.GetDCCutRate());
+		
+		bShift ^= rCSettingTab.IsSwapPreview();
+		if (bShift){
+			for (auto CTimbre : m_aCTimbre) CTimbre->Play(Note);
+		} else {
+			auto iItem = m_CTabCtrl.GetCurSel();
+			m_aCTimbre[iItem]->Play(Note);
+		}
 	}
 }
 

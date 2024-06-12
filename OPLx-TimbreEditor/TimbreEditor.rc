@@ -219,7 +219,9 @@ BEGIN
     RTEXT           "0.999",IDC_STATIC,90,96,16,8
     CONTROL         "ペーストで取り込んだ音色形式を拡張コピーに自動設定する",IDC_SETTING_AUTO_COPY_FORMAT_CHECK,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,114,18,177,10
-    CONTROL         "OPLLの初期設定を1にする",IDC_SETTING_OPLL_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,108,89,10
+    CONTROL         "OPLLの初期設定を1にする",IDC_SETTING_OPLL_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,126,89,10
+    CONTROL         "全レイヤーと現レイヤーのプレビュー操作を入れ替える",IDC_SETTING_SWAP_PREVIEW_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,108,158,10
 END
 
 

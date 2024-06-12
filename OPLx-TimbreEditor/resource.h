@@ -153,6 +153,8 @@
 #define IDC_TIMBRE_OP3_STATIC           1093
 #define IDC_TIMBRE_OP4_STATIC           1094
 #define IDC_SETTING_OPLL_CHECK          1095
+#define IDC_CHECK1                      1096
+#define IDC_SETTING_SWAP_PREVIEW_CHECK  1096
 
 // Next default values for new objects
 // 
@@ -160,7 +162,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        182
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1096
+#define _APS_NEXT_CONTROL_VALUE         1097
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

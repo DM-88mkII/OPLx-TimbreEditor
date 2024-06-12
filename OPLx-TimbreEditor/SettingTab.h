@@ -36,6 +36,7 @@ class CSettingTab : public CDialogEx
 		CSliderCtrl m_CSliderCtrlResonance;
 		CButton m_CButtonDCCut;
 		CSliderCtrl m_CSliderCtrlDCCutRate;
+		CButton m_CButtonSwapPreview;
 		CButton m_CButtonOPLL;
 		
 		virtual BOOL OnInitDialog();
@@ -50,6 +51,8 @@ class CSettingTab : public CDialogEx
 		afx_msg void OnNMCustomdrawSettingResonanceSlider(NMHDR* pNMHDR, LRESULT* pResult);
 		afx_msg void OnBnClickedSettingDcCutCheck();
 		afx_msg void OnNMCustomdrawSettingDcCutRateSlider(NMHDR* pNMHDR, LRESULT* pResult);
+		afx_msg void OnBnClickedSettingSwapPreviewCheck();
+		afx_msg void OnBnClickedSettingOpllCheck();
 	
 	public:
 		enum EFormatType
@@ -76,6 +79,6 @@ class CSettingTab : public CDialogEx
 		double GetResonance();
 		bool IsDCCut();
 		double GetDCCutRate();
+		bool IsSwapPreview();
 		bool IsOPLL();
-		afx_msg void OnBnClickedSettingOpllCheck();
 };

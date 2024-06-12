@@ -38,6 +38,7 @@ void CSettingTab::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SETTING_DC_CUT_CHECK, m_CButtonDCCut);
 	DDX_Control(pDX, IDC_SETTING_DC_CUT_RATE_SLIDER, m_CSliderCtrlDCCutRate);
 	DDX_Control(pDX, IDC_SETTING_SYNTHESIZE_FREQ_COMBO, m_CComboBoxSynthesizeFreq);
+	DDX_Control(pDX, IDC_SETTING_SWAP_PREVIEW_CHECK, m_CButtonSwapPreview);
 	DDX_Control(pDX, IDC_SETTING_OPLL_CHECK, m_CButtonOPLL);
 }
 
@@ -54,6 +55,7 @@ BEGIN_MESSAGE_MAP(CSettingTab, CDialogEx)
 	ON_BN_CLICKED(IDC_SETTING_DC_CUT_CHECK, &CSettingTab::OnBnClickedSettingDcCutCheck)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SETTING_DC_CUT_RATE_SLIDER, &CSettingTab::OnNMCustomdrawSettingDcCutRateSlider)
 	ON_CBN_SELCHANGE(IDC_SETTING_SYNTHESIZE_FREQ_COMBO, &CSettingTab::OnCbnSelchangeSettingSynthesizeFreqCombo)
+	ON_BN_CLICKED(IDC_SETTING_SWAP_PREVIEW_CHECK, &CSettingTab::OnBnClickedSettingSwapPreviewCheck)
 	ON_BN_CLICKED(IDC_SETTING_OPLL_CHECK, &CSettingTab::OnBnClickedSettingOpllCheck)
 END_MESSAGE_MAP()
 
@@ -100,6 +102,8 @@ BOOL CSettingTab::OnInitDialog()
 	
 	m_CComboBoxSynthesizeFreq.SetCurSel(theApp.GetValue(_T("SynthesizeFreq"), (int)ESynthesizeFreq::Hz50000));
 	SetDropdownSize(m_CComboBoxSynthesizeFreq);
+	
+	m_CButtonSwapPreview.SetCheck(theApp.GetValue(_T("SwapPreview"), BST_UNCHECKED));
 	
 	m_CButtonOPLL.SetCheck(theApp.GetValue(_T("OPLL"), BST_UNCHECKED));
 	
@@ -205,6 +209,13 @@ void CSettingTab::OnNMCustomdrawSettingDcCutRateSlider(NMHDR* pNMHDR, LRESULT* p
 
 
 
+void CSettingTab::OnBnClickedSettingSwapPreviewCheck()
+{
+	theApp.SetValue(_T("SwapPreview"), (IsSwapPreview())? BST_CHECKED: BST_UNCHECKED);
+}
+
+
+
 void CSettingTab::OnBnClickedSettingOpllCheck()
 {
 	theApp.SetValue(_T("OPLL"), (IsOPLL())? BST_CHECKED: BST_UNCHECKED);
@@ -295,6 +306,13 @@ bool CSettingTab::IsDCCut()
 double CSettingTab::GetDCCutRate()
 {
 	return (m_CSliderCtrlDCCutRate.GetPos() / 1000.0) + 0.99;
+}
+
+
+
+bool CSettingTab::IsSwapPreview()
+{
+	return (m_CButtonSwapPreview.GetCheck() == BST_CHECKED);
 }
 
 
