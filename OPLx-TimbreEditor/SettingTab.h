@@ -60,6 +60,7 @@ class CSettingTab : public CDialogEx
 			MgsDrv,
 			Mml2VgmLL,
 			PmdOPL,
+			FamiTracker,
 			MsxBasic,
 			Num,
 		};

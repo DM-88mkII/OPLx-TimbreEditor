@@ -21,6 +21,7 @@ YAMAHA の FM音源チップ OPL系用の音色エディターです。
   * MGSDRV, MSXplay
   * mml2vgm（LL形式）
   * PMD（OPL型）
+  * FamiTracker
   * MSX-BASIC
 * ペーストは、上記全ての形式を自動判別してインポート
 

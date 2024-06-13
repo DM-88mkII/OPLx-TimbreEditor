@@ -81,6 +81,9 @@ struct CIntermediate
 		void ToPmdOPL(CString& Text);
 		void FromPmdOPL(const CString& Text);
 		
+		void ToFamiTracker(CString& Text);
+		void FromFamiTracker(const CString& Text);
+		
 		void ToMsxBasic(CString& Text);
 		void FromMsxBasic(const CString& Text);
 };

@@ -154,10 +154,11 @@ void from_json(const nlohmann::json& j, CIntermediate& r){ r.from_json(j); }
 void CIntermediate::ToFormat(CSettingTab::EFormatType EFormatType, CString& Text)
 {
 	switch (EFormatType){
-		case CSettingTab::EFormatType::MgsDrv:{		ToMgsDrv(Text);			break;	}
-		case CSettingTab::EFormatType::Mml2VgmLL:{	ToMml2VgmLL(Text);		break;	}
-		case CSettingTab::EFormatType::PmdOPL:{		ToPmdOPL(Text);			break;	}
-		case CSettingTab::EFormatType::MsxBasic:{	ToMsxBasic(Text);		break;	}
+		case CSettingTab::EFormatType::MgsDrv:{			ToMgsDrv(Text);			break;	}
+		case CSettingTab::EFormatType::Mml2VgmLL:{		ToMml2VgmLL(Text);		break;	}
+		case CSettingTab::EFormatType::PmdOPL:{			ToPmdOPL(Text);			break;	}
+		case CSettingTab::EFormatType::FamiTracker:{	ToFamiTracker(Text);	break;	}
+		case CSettingTab::EFormatType::MsxBasic:{		ToMsxBasic(Text);		break;	}
 	}
 }
 
@@ -166,10 +167,11 @@ void CIntermediate::ToFormat(CSettingTab::EFormatType EFormatType, CString& Text
 void CIntermediate::FromFormat(CSettingTab::EFormatType EFormatType, const CString& Text)
 {
 	switch (EFormatType){
-		case CSettingTab::EFormatType::MgsDrv:{		FromMgsDrv(Text);		break;	}
-		case CSettingTab::EFormatType::Mml2VgmLL:{	FromMml2VgmLL(Text);	break;	}
-		case CSettingTab::EFormatType::PmdOPL:{		FromPmdOPL(Text);		break;	}
-		case CSettingTab::EFormatType::MsxBasic:{	FromMsxBasic(Text);		break;	}
+		case CSettingTab::EFormatType::MgsDrv:{			FromMgsDrv(Text);		break;	}
+		case CSettingTab::EFormatType::Mml2VgmLL:{		FromMml2VgmLL(Text);	break;	}
+		case CSettingTab::EFormatType::PmdOPL:{			FromPmdOPL(Text);		break;	}
+		case CSettingTab::EFormatType::FamiTracker:{	FromFamiTracker(Text);	break;	}
+		case CSettingTab::EFormatType::MsxBasic:{		FromMsxBasic(Text);		break;	}
 	}
 }
 
@@ -378,8 +380,9 @@ void CIntermediate::FromMgsDrv(const CString& Text)
 	}
 	if (!(IsTimbre && iOperator == _countof(aOperator))){
 		throw std::runtime_error("Format Error");
+	} else {
+		Control.OPLL = 1;
 	}
-	Control.OPLL = 1;
 }
 
 
@@ -463,6 +466,8 @@ void CIntermediate::FromMml2VgmLL(const CString& Text)
 	}
 	if (!(IsTimbre && iOperator == _countof(aOperator))){
 		throw std::runtime_error("Format Error");
+	} else {
+		Control.OPLL = 1;
 	}
 }
 
@@ -562,6 +567,92 @@ void CIntermediate::FromPmdOPL(const CString& Text)
 	}
 	if (!(IsTimbre && IsControl && iOperator == _countof(aOperator))){
 		throw std::runtime_error("Format Error");
+	}
+}
+
+
+
+void CIntermediate::ToFamiTracker(CString& Text)
+{
+	std::string s;
+	s += std::format( "${:02x}", ((aOperator[0].AM<<7) | (aOperator[0].VIB<<6) | (aOperator[0].EGT<<5) | (aOperator[0].KSR<<4) | aOperator[0].MT));
+	s += std::format(" ${:02x}", ((aOperator[1].AM<<7) | (aOperator[1].VIB<<6) | (aOperator[1].EGT<<5) | (aOperator[1].KSR<<4) | aOperator[1].MT));
+	s += std::format(" ${:02x}", ((aOperator[0].KSL<<6) | aOperator[0].TL));
+	s += std::format(" ${:02x}", ((aOperator[1].KSL<<6) | (aOperator[1].WF<<4) | (aOperator[0].WF<<3) | Control.FB));
+	s += std::format(" ${:02x}", ((aOperator[0].AR<<4) | aOperator[0].DR));
+	s += std::format(" ${:02x}", ((aOperator[1].AR<<4) | aOperator[1].DR));
+	s += std::format(" ${:02x}", ((aOperator[0].SL<<4) | aOperator[0].RR));
+	s += std::format(" ${:02x}", ((aOperator[1].SL<<4) | aOperator[1].RR));
+	
+	Text = s.c_str();
+}
+
+
+
+void CIntermediate::FromFamiTracker(const CString& Text)
+{
+	auto IsTimbre = false;
+	
+	auto Lines = GetLines(Text);
+	for (auto& Line : Lines){
+		if (!IsTimbre){
+			if (Line.starts_with("$")){
+				Replace(Line, "$", "");
+				
+				auto Tokens = GetToken(Line, ' ');
+				if (Tokens.size() == 8){
+					IsTimbre = true;
+					
+					auto r0 = ToValueHex(Tokens[0]);
+					auto r1 = ToValueHex(Tokens[1]);
+					auto r2 = ToValueHex(Tokens[2]);
+					auto r3 = ToValueHex(Tokens[3]);
+					auto r4 = ToValueHex(Tokens[4]);
+					auto r5 = ToValueHex(Tokens[5]);
+					auto r6 = ToValueHex(Tokens[6]);
+					auto r7 = ToValueHex(Tokens[7]);
+					
+					aOperator[0].AM = (r0>>7) & 0x1;
+					aOperator[0].VIB = (r0>>6) & 0x1;
+					aOperator[0].EGT = (r0>>5) & 0x1;
+					aOperator[0].KSR = (r0>>4) & 0x1;
+					aOperator[0].MT = (r0>>0) & 0xf;
+					
+					aOperator[1].AM = (r1>>7) & 0x1;
+					aOperator[1].VIB = (r1>>6) & 0x1;
+					aOperator[1].EGT = (r1>>5) & 0x1;
+					aOperator[1].KSR = (r1>>4) & 0x1;
+					aOperator[1].MT = (r1>>0) & 0xf;
+					
+					aOperator[0].KSL = (r2>>6) & 0x3;
+					aOperator[0].TL = (r2>>0) & 0x3f;
+					
+					aOperator[1].KSL = (r3>>6) & 0x3;
+					aOperator[1].WF = (r3>>4) & 0x1;
+					aOperator[0].WF = (r3>>3) & 0x1;
+					Control.FB = (r3>>0) & 0x7;
+					
+					aOperator[0].AR = (r4>>4) & 0xf;
+					aOperator[0].DR = (r4>>0) & 0xf;
+					
+					aOperator[1].AR = (r5>>4) & 0xf;
+					aOperator[1].DR = (r5>>0) & 0xf;
+					
+					aOperator[0].SL = (r6>>4) & 0xf;
+					aOperator[0].RR = (r6>>0) & 0xf;
+					
+					aOperator[1].SL = (r7>>4) & 0xf;
+					aOperator[1].RR = (r7>>0) & 0xf;
+				}
+				break;
+			}
+		}
+	}
+	
+	if (!IsTimbre){
+		throw std::runtime_error("Format Error");
+	} else {
+		Control.OPLL = 1;
 	}
 }
 
