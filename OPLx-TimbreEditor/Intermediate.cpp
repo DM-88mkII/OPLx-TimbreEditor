@@ -604,43 +604,42 @@ void CIntermediate::FromFamiTracker(const CString& Text)
 					IsTimbre = true;
 					
 					auto r0 = ToValueHex(Tokens[0]);
-					auto r1 = ToValueHex(Tokens[1]);
-					auto r2 = ToValueHex(Tokens[2]);
-					auto r3 = ToValueHex(Tokens[3]);
-					auto r4 = ToValueHex(Tokens[4]);
-					auto r5 = ToValueHex(Tokens[5]);
-					auto r6 = ToValueHex(Tokens[6]);
-					auto r7 = ToValueHex(Tokens[7]);
-					
 					aOperator[0].AM = (r0>>7) & 0x1;
 					aOperator[0].VIB = (r0>>6) & 0x1;
 					aOperator[0].EGT = (r0>>5) & 0x1;
 					aOperator[0].KSR = (r0>>4) & 0x1;
 					aOperator[0].MT = (r0>>0) & 0xf;
 					
+					auto r1 = ToValueHex(Tokens[1]);
 					aOperator[1].AM = (r1>>7) & 0x1;
 					aOperator[1].VIB = (r1>>6) & 0x1;
 					aOperator[1].EGT = (r1>>5) & 0x1;
 					aOperator[1].KSR = (r1>>4) & 0x1;
 					aOperator[1].MT = (r1>>0) & 0xf;
 					
+					auto r2 = ToValueHex(Tokens[2]);
 					aOperator[0].KSL = (r2>>6) & 0x3;
 					aOperator[0].TL = (r2>>0) & 0x3f;
 					
+					auto r3 = ToValueHex(Tokens[3]);
 					aOperator[1].KSL = (r3>>6) & 0x3;
 					aOperator[1].WF = (r3>>4) & 0x1;
 					aOperator[0].WF = (r3>>3) & 0x1;
 					Control.FB = (r3>>0) & 0x7;
 					
+					auto r4 = ToValueHex(Tokens[4]);
 					aOperator[0].AR = (r4>>4) & 0xf;
 					aOperator[0].DR = (r4>>0) & 0xf;
 					
+					auto r5 = ToValueHex(Tokens[5]);
 					aOperator[1].AR = (r5>>4) & 0xf;
 					aOperator[1].DR = (r5>>0) & 0xf;
 					
+					auto r6 = ToValueHex(Tokens[6]);
 					aOperator[0].SL = (r6>>4) & 0xf;
 					aOperator[0].RR = (r6>>0) & 0xf;
 					
+					auto r7 = ToValueHex(Tokens[7]);
 					aOperator[1].SL = (r7>>4) & 0xf;
 					aOperator[1].RR = (r7>>0) & 0xf;
 				}
