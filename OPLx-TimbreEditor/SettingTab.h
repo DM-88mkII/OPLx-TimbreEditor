@@ -37,6 +37,7 @@ class CSettingTab : public CDialogEx
 		CButton m_CButtonDCCut;
 		CSliderCtrl m_CSliderCtrlDCCutRate;
 		CButton m_CButtonSwapPreview;
+		CSliderCtrl m_CSliderCtrlVolume;
 		CButton m_CButtonOPLL;
 		
 		virtual BOOL OnInitDialog();
@@ -52,7 +53,10 @@ class CSettingTab : public CDialogEx
 		afx_msg void OnBnClickedSettingDcCutCheck();
 		afx_msg void OnNMCustomdrawSettingDcCutRateSlider(NMHDR* pNMHDR, LRESULT* pResult);
 		afx_msg void OnBnClickedSettingSwapPreviewCheck();
+		afx_msg void OnNMCustomdrawSettingVolumeSlider(NMHDR* pNMHDR, LRESULT* pResult);
 		afx_msg void OnBnClickedSettingOpllCheck();
+		
+		template<class... Args> void Log(std::wformat_string<Args...> fmt, Args&& ... args);
 	
 	public:
 		enum EFormatType
@@ -81,5 +85,7 @@ class CSettingTab : public CDialogEx
 		bool IsDCCut();
 		double GetDCCutRate();
 		bool IsSwapPreview();
+		double GetVolume();
+		void SetVolume(double Volume);
 		bool IsOPLL();
 };
